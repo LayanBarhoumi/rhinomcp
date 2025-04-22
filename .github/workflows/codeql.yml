@@ -1,11 +1,11 @@
 name: "CodeQL"
 
 on:
-  workflow_dispatch:         # Allows manual triggering
+  workflow_dispatch:  # Allows manual trigger
   push:
-    branches: [ "main" ]     # Run on pushes to main
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]     # Run on PRs to main
+    branches: [ "main" ]
 
 jobs:
   analyze:
@@ -15,24 +15,24 @@ jobs:
     permissions:
       actions: read
       contents: read
-      security-events: write  # Required to upload results
+      security-events: write
 
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp', 'python' ]  # Add more if needed
+        language: [ 'csharp', 'python' ]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-        languages: ${{ matrix.language }}
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
